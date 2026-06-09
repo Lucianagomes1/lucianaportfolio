@@ -1,0 +1,26 @@
+<svg width="520" height="320" viewBox="0 0 520 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Vivo</title>
+  <desc id="desc">Logo estilizado da Vivo em branco sobre fundo roxo.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="520" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6E2A90"/>
+      <stop offset="0.62" stop-color="#55217A"/>
+      <stop offset="1" stop-color="#35104F"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(376 110) rotate(132) scale(228 332)">
+      <stop stop-color="white" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="520" height="320" rx="42" fill="url(#bg)"/>
+  <rect width="520" height="320" rx="42" fill="url(#glow)"/>
+  <g fill="white">
+    <path d="M95 160C85 139 117 124 130 146L159 196L188 146C201 124 233 139 223 160L181 231C171 249 148 249 138 231L95 160Z"/>
+    <rect x="232" y="136" width="35" height="105" rx="17.5"/>
+    <circle cx="249.5" cy="103.5" r="22.5"/>
+    <path d="M287 160C277 139 309 124 322 146L351 196L380 146C393 124 425 139 415 160L373 231C363 249 340 249 330 231L287 160Z"/>
+    <circle cx="454" cy="105" r="28"/>
+    <rect x="427" y="139" width="54" height="102" rx="27"/>
+    <rect x="405" y="170" width="98" height="32" rx="16"/>
+  </g>
+</svg>

@@ -100,3 +100,12 @@ if (document.readyState === "loading") {
 } else {
   typeHeroTitle();
 }
+
+document.querySelectorAll(".certificate-card").forEach((card) => {
+  card.addEventListener("click", () => {
+    const image = card.querySelector(".certificate-image");
+    if (!image) return;
+
+    window.open(image.currentSrc || image.src, "_blank", "noopener,noreferrer");
+  });
+});
