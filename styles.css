@@ -63,16 +63,6 @@ body {
   }
 }
 
-@keyframes matrix-fall {
-  from {
-    transform: translateY(-62vh);
-  }
-
-  to {
-    transform: translateY(34vh);
-  }
-}
-
 @keyframes cursor-blink {
   50% {
     opacity: 0;
@@ -112,103 +102,6 @@ body::after {
     repeating-linear-gradient(0deg, transparent 0 120px, rgba(0, 184, 255, 0.035) 120px 121px, transparent 121px 240px);
   mask-image: linear-gradient(90deg, #000 0 18%, transparent 36% 64%, #000 82% 100%);
   opacity: 0.42;
-}
-
-.matrix-bg {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  display: grid;
-  grid-template-columns: repeat(18, 1fr);
-  gap: clamp(5px, 0.9vw, 13px);
-  overflow: hidden;
-  padding-inline: clamp(6px, 2vw, 28px);
-  background:
-    radial-gradient(circle at 75% 10%, rgba(0, 157, 255, 0.22), transparent 20rem),
-    radial-gradient(circle at 22% 8%, rgba(255, 45, 146, 0.2), transparent 22rem),
-    linear-gradient(180deg, #030316 0%, #03030d 45%, #010104 100%);
-  opacity: 0.86;
-  filter: saturate(1.1);
-  pointer-events: none;
-}
-
-.matrix-bg::before,
-.matrix-bg::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.matrix-bg::before {
-  background:
-    linear-gradient(180deg, rgba(255, 45, 146, 0), rgba(255, 45, 146, 0.2), rgba(0, 157, 255, 0.1), rgba(255, 45, 146, 0)),
-    repeating-linear-gradient(90deg, transparent 0 38px, rgba(255, 45, 146, 0.05) 38px 39px, transparent 39px 76px),
-    radial-gradient(circle at 54% 28%, rgba(255, 116, 189, 0.22), transparent 13rem);
-  mix-blend-mode: screen;
-}
-
-.matrix-bg::after {
-  background:
-    linear-gradient(90deg, rgba(5, 5, 16, 0.64), transparent 20%, transparent 80%, rgba(5, 5, 16, 0.64)),
-    linear-gradient(180deg, rgba(5, 5, 16, 0.08), rgba(5, 5, 16, 0.18) 42%, rgba(5, 5, 16, 0.84));
-}
-
-.matrix-bg span {
-  position: relative;
-  width: 1ch;
-  min-height: 150vh;
-  color: rgba(255, 73, 174, 0.68);
-  font-family: "Courier New", monospace;
-  font-size: clamp(0.66rem, 1vw, 0.96rem);
-  font-weight: 700;
-  line-height: 1.14;
-  text-shadow:
-    0 0 8px rgba(255, 45, 146, 0.72),
-    0 0 20px rgba(255, 45, 146, 0.42);
-  transform: translateY(-30vh);
-  writing-mode: vertical-rl;
-  animation: matrix-fall 13s linear infinite;
-}
-
-.matrix-bg span::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 3px;
-  height: clamp(90px, 18vh, 210px);
-  transform: translateX(-50%);
-  background: linear-gradient(180deg, rgba(255, 45, 146, 0.9), rgba(88, 48, 255, 0.38), transparent);
-  box-shadow: 0 0 18px rgba(255, 45, 146, 0.62);
-  opacity: 0.62;
-}
-
-.matrix-bg span:nth-child(2n) {
-  color: rgba(0, 184, 255, 0.58);
-  text-shadow:
-    0 0 8px rgba(0, 184, 255, 0.56),
-    0 0 22px rgba(0, 184, 255, 0.34);
-  animation-duration: 18s;
-  animation-delay: -8s;
-}
-
-.matrix-bg span:nth-child(2n)::after {
-  background: linear-gradient(180deg, rgba(0, 184, 255, 0.9), rgba(78, 40, 255, 0.36), transparent);
-  box-shadow: 0 0 18px rgba(0, 184, 255, 0.58);
-}
-
-.matrix-bg span:nth-child(3n) {
-  opacity: 0.72;
-  animation-duration: 11s;
-  animation-delay: -13s;
-}
-
-.matrix-bg span:nth-child(4n) {
-  color: rgba(142, 73, 255, 0.55);
-  animation-duration: 21s;
-  animation-delay: -5s;
 }
 
 a {
@@ -600,20 +493,36 @@ h3 {
 
 .teaching-card {
   min-height: 210px;
-  padding: 24px;
+  padding: 34px;
   border-radius: 34px 12px 34px 12px;
 }
 
-.teaching-number {
-  display: inline-flex;
-  margin-bottom: 24px;
-  color: var(--pink-soft);
-  font-size: 0.8rem;
-  font-weight: 900;
+.teaching-card h3 {
+  max-width: 520px;
+  margin-bottom: 14px;
+  font-size: clamp(1.25rem, 1.45vw, 1.65rem);
 }
 
 .teaching-card p {
   color: var(--muted);
+  max-width: 620px;
+  font-size: clamp(1.02rem, 1.05vw, 1.18rem);
+  line-height: 1.7;
+}
+
+.timeline-item h3,
+.content-card h3,
+.project-card h3,
+.stack-group h3,
+.certificate-card h3 {
+  font-size: clamp(1.15rem, 1.15vw, 1.34rem);
+}
+
+.tag-list li,
+.card-kicker,
+.project-card a,
+.content-card strong {
+  font-size: 0.94rem;
 }
 
 .prose p {
@@ -1114,6 +1023,13 @@ h3 {
 
   .hero {
     min-height: auto;
+    gap: 40px;
+    padding-top: 42px;
+  }
+
+  .hero-panel {
+    width: min(100%, 520px);
+    justify-self: center;
   }
 
   .content-grid,
@@ -1125,15 +1041,6 @@ h3 {
 }
 
 @media (max-width: 620px) {
-  .matrix-bg {
-    grid-template-columns: repeat(9, 1fr);
-    opacity: 0.78;
-  }
-
-  .matrix-bg span:nth-child(n + 10) {
-    display: none;
-  }
-
   .section-shell {
     width: min(100% - 28px, 1120px);
     padding: 58px 0;
@@ -1162,6 +1069,20 @@ h3 {
     padding: 20px;
   }
 
+  .hero-actions,
+  .contact-actions {
+    width: 100%;
+  }
+
+  .hero-actions .button,
+  .contact-actions .button {
+    width: 100%;
+  }
+
+  .portrait-frame {
+    width: min(100%, 300px);
+  }
+
   .timeline-meta {
     align-items: flex-start;
     flex-direction: column;
@@ -1177,6 +1098,19 @@ h3 {
     width: 130px;
     height: 72px;
   }
+}
+
+.hero-text,
+.section-heading p,
+.prose,
+.timeline-item p,
+.content-card p,
+.project-card p,
+.stack-group p,
+.contact p,
+.certificate-card p {
+  font-size: clamp(1.02rem, 1.05vw, 1.18rem);
+  line-height: 1.7;
 }
 
 .hero-panel.neon-card {
@@ -1227,7 +1161,4 @@ h3 {
     transition-duration: 0.01ms !important;
   }
 
-  .matrix-bg span {
-    transform: translateY(-10vh);
-  }
 }

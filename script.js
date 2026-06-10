@@ -38,24 +38,51 @@ async function enableAudio() {
 function playKeySound(index) {
   if (!soundEnabled || !audioContext || audioContext.state !== "running") return;
 
-  const oscillator = audioContext.createOscillator();
+  const duration = 0.035;
+  const sampleRate = audioContext.sampleRate;
+  const buffer = audioContext.createBuffer(1, Math.floor(sampleRate * duration), sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < data.length; i += 1) {
+    const fade = 1 - i / data.length;
+    data[i] = (Math.random() * 2 - 1) * fade;
+  }
+
+  const noise = audioContext.createBufferSource();
   const gain = audioContext.createGain();
-  const filter = audioContext.createBiquadFilter();
+  const highpass = audioContext.createBiquadFilter();
+  const lowpass = audioContext.createBiquadFilter();
+  const click = audioContext.createOscillator();
+  const clickGain = audioContext.createGain();
 
-  oscillator.type = "square";
-  oscillator.frequency.value = 510 + (index % 8) * 24;
-  filter.type = "lowpass";
-  filter.frequency.value = 1450;
+  noise.buffer = buffer;
+  highpass.type = "highpass";
+  highpass.frequency.value = 1200 + (index % 4) * 90;
+  lowpass.type = "lowpass";
+  lowpass.frequency.value = 5200;
+
   gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.026, audioContext.currentTime + 0.006);
-  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.045);
+  gain.gain.exponentialRampToValueAtTime(0.04, audioContext.currentTime + 0.003);
+  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
 
-  oscillator.connect(filter);
-  filter.connect(gain);
+  click.type = "triangle";
+  click.frequency.value = 190 + (index % 5) * 18;
+  clickGain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+  clickGain.gain.exponentialRampToValueAtTime(0.012, audioContext.currentTime + 0.002);
+  clickGain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.026);
+
+  noise.connect(highpass);
+  highpass.connect(lowpass);
+  lowpass.connect(gain);
   gain.connect(audioContext.destination);
 
-  oscillator.start();
-  oscillator.stop(audioContext.currentTime + 0.05);
+  click.connect(clickGain);
+  clickGain.connect(audioContext.destination);
+
+  noise.start();
+  noise.stop(audioContext.currentTime + duration);
+  click.start();
+  click.stop(audioContext.currentTime + 0.028);
 }
 
 async function typeHeroTitle() {
