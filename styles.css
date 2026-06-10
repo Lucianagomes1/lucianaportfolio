@@ -226,14 +226,14 @@ a {
   min-height: calc(100svh - 77px);
   align-items: center;
   gap: clamp(42px, 8vw, 150px);
-  padding-top: 58px;
+  padding: 72px clamp(42px, 5vw, 96px) 72px;
   overflow: hidden;
 }
 
 .hero::before {
   content: "";
   position: absolute;
-  inset: 28px -2vw 24px;
+  inset: 28px 0 24px;
   z-index: -3;
   border-radius: 44px;
   background:
@@ -250,7 +250,7 @@ a {
 .hero::after {
   content: "";
   position: absolute;
-  inset: 28px -2vw 24px;
+  inset: 28px 0 24px;
   z-index: -2;
   border-radius: 44px;
   background:
@@ -263,7 +263,7 @@ a {
 
 .hero-ambient {
   position: absolute;
-  inset: 28px -2vw 24px;
+  inset: 28px 0 24px;
   z-index: -1;
   overflow: hidden;
   border-radius: 44px;
@@ -1221,13 +1221,13 @@ h3 {
   .hero {
     min-height: auto;
     gap: 40px;
-    padding-top: 42px;
+    padding: 42px clamp(16px, 4vw, 28px) 58px;
   }
 
   .hero::before,
   .hero::after,
   .hero-ambient {
-    inset: 18px -10px 18px;
+    inset: 18px 0;
     border-radius: 32px;
   }
 
@@ -1253,19 +1253,23 @@ h3 {
 
 @media (max-width: 620px) {
   .section-shell {
-    width: min(100% - 28px, 1120px);
+    width: min(100% - 24px, 1120px);
     padding: 58px 0;
   }
 
   h1 {
-    font-size: clamp(2.35rem, 13vw, 3.4rem);
+    font-size: clamp(2.25rem, 11.5vw, 3.2rem);
   }
 
   .hero::before,
   .hero::after,
   .hero-ambient {
-    inset: 10px -6px;
+    inset: 10px 0;
     border-radius: 26px;
+  }
+
+  .hero {
+    padding-inline: clamp(24px, 7vw, 34px);
   }
 
   .hero-name {
@@ -1374,6 +1378,31 @@ h3 {
   box-shadow:
     -28px 0 90px rgba(255, 45, 146, 0.18),
     0 34px 90px rgba(0, 0, 0, 0.64);
+}
+
+@media (max-width: 620px) {
+  .hero.section-shell {
+    width: calc(100% - 32px);
+    padding: 48px 22px 58px;
+  }
+
+  .hero::before,
+  .hero::after,
+  .hero-ambient {
+    inset: 8px;
+  }
+
+  .hero-copy {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 4px;
+  }
+
+  .typewriter-title {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
