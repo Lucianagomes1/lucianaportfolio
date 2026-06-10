@@ -22,23 +22,25 @@
 }
 
 html {
+  min-height: 100%;
+  background: var(--bg);
   scroll-behavior: smooth;
 }
 
 body {
+  position: relative;
+  min-height: 100%;
   margin: 0;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
-    linear-gradient(90deg, rgba(255, 45, 146, 0.1) 0 1px, transparent 1px 96px),
-    linear-gradient(0deg, rgba(0, 184, 255, 0.05) 0 1px, transparent 1px 96px),
-    radial-gradient(circle at 2% 18%, rgba(255, 45, 146, 0.18), transparent 28rem),
-    radial-gradient(circle at 98% 14%, rgba(0, 177, 255, 0.16), transparent 30rem),
-    radial-gradient(circle at 74% 8%, rgba(0, 177, 255, 0.11), transparent 30rem),
-    radial-gradient(circle at 18% 18%, rgba(255, 45, 146, 0.14), transparent 26rem),
+    radial-gradient(circle at 12% 16%, rgba(255, 45, 146, 0.2), transparent 29rem),
+    radial-gradient(circle at 92% 10%, rgba(255, 116, 189, 0.14), transparent 32rem),
+    radial-gradient(circle at 78% 78%, rgba(0, 184, 255, 0.08), transparent 30rem),
     var(--bg);
   color: var(--text);
   font-size: 17px;
   line-height: 1.6;
+  overflow-x: hidden;
 }
 
 @keyframes soft-float {
@@ -79,29 +81,73 @@ body {
   }
 }
 
+@keyframes circuit-drift {
+  from {
+    background-position:
+      0 0,
+      180px 90px,
+      0 0,
+      0 0;
+  }
+
+  to {
+    background-position:
+      760px 0,
+      -340px 180px,
+      180px 0,
+      0 140px;
+  }
+}
+
+@keyframes circuit-pulse {
+  0%,
+  100% {
+    opacity: 0.24;
+  }
+
+  48% {
+    opacity: 0.4;
+  }
+}
+
 body::before {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(3, 3, 5, 0.9), rgba(3, 3, 5, 0.32), rgba(3, 3, 5, 0.9)),
-    linear-gradient(180deg, rgba(3, 3, 5, 0.12), rgba(3, 3, 5, 0.76) 68%, rgba(3, 3, 5, 0.98));
-  z-index: -1;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='760' height='360' viewBox='0 0 760 360'%3E%3Cg fill='none' stroke='%23ff4fb0' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 62h82v38h86v-58h70'/%3E%3Cpath d='M316 24v76h-42v76h84v48h92'/%3E%3Cpath d='M518 44h74v56h132'/%3E%3Cpath d='M74 228h98v-52h68'/%3E%3Cpath d='M432 286h72v-64h88v-42h132'/%3E%3Cpath d='M206 316v-58h92v-38h72'/%3E%3Cpath d='M606 302v-52h-48'/%3E%3C/g%3E%3Cg fill='%23ffd2ea'%3E%3Ccircle cx='18' cy='62' r='4'/%3E%3Ccircle cx='256' cy='42' r='5'/%3E%3Ccircle cx='518' cy='44' r='4'/%3E%3Ccircle cx='724' cy='100' r='5'/%3E%3Ccircle cx='74' cy='228' r='4'/%3E%3Ccircle cx='724' cy='180' r='4'/%3E%3Ccircle cx='206' cy='316' r='5'/%3E%3Ccircle cx='606' cy='302' r='4'/%3E%3C/g%3E%3Crect x='342' y='102' width='76' height='130' rx='34' fill='none' stroke='%23ff8bc9' stroke-width='3.4'/%3E%3Crect x='356' y='116' width='48' height='102' rx='24' fill='none' stroke='%23ffd2ea' stroke-width='1.6' opacity='.72'/%3E%3Cpath d='M372 84h18m-30 10h42' stroke='%23ff8bc9' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='260' viewBox='0 0 520 260'%3E%3Cg fill='none' stroke='%23ff2d92' stroke-width='1.7' stroke-linecap='round'%3E%3Cpath d='M0 34h70v34h64v48h82'/%3E%3Cpath d='M300 0v44h58v50h104v42h58'/%3E%3Cpath d='M24 196h118v-42h70'/%3E%3Cpath d='M268 238h78v-64h92'/%3E%3C/g%3E%3Cg fill='%23ffb4dd'%3E%3Ccircle cx='70' cy='34' r='3.5'/%3E%3Ccircle cx='216' cy='116' r='3.5'/%3E%3Ccircle cx='462' cy='136' r='3.5'/%3E%3Ccircle cx='142' cy='196' r='3.5'/%3E%3Ccircle cx='438' cy='174' r='3.5'/%3E%3C/g%3E%3C/svg%3E"),
+    linear-gradient(90deg, rgba(255, 45, 146, 0.08) 0 1px, transparent 1px 120px),
+    linear-gradient(0deg, rgba(255, 116, 189, 0.055) 0 1px, transparent 1px 120px);
+  background-repeat: repeat;
+  background-size:
+    760px 360px,
+    520px 260px,
+    120px 120px,
+    120px 120px;
+  filter: drop-shadow(0 0 8px rgba(255, 45, 146, 0.72)) drop-shadow(0 0 22px rgba(255, 45, 146, 0.25));
+  mix-blend-mode: screen;
+  animation: circuit-drift 42s linear infinite, circuit-pulse 7s ease-in-out infinite;
 }
 
 body::after {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(255, 45, 146, 0.2), transparent 14%, transparent 86%, rgba(0, 184, 255, 0.16)),
-    repeating-linear-gradient(90deg, transparent 0 140px, rgba(255, 45, 146, 0.07) 140px 141px, transparent 141px 280px),
-    repeating-linear-gradient(0deg, transparent 0 120px, rgba(0, 184, 255, 0.035) 120px 121px, transparent 121px 240px);
-  mask-image: linear-gradient(90deg, #000 0 18%, transparent 36% 64%, #000 82% 100%);
-  opacity: 0.42;
+    radial-gradient(circle at 50% 18%, rgba(255, 45, 146, 0.05), transparent 25rem),
+    linear-gradient(90deg, rgba(3, 3, 5, 0.92), rgba(3, 3, 5, 0.5) 22%, rgba(3, 3, 5, 0.44) 50%, rgba(3, 3, 5, 0.7) 78%, rgba(3, 3, 5, 0.94)),
+    linear-gradient(180deg, rgba(3, 3, 5, 0.12), rgba(3, 3, 5, 0.68) 70%, rgba(3, 3, 5, 0.98));
+}
+
+.site-header,
+main {
+  position: relative;
+  z-index: 1;
 }
 
 a {
