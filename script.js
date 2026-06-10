@@ -136,3 +136,25 @@ document.querySelectorAll(".certificate-card").forEach((card) => {
     window.open(image.currentSrc || image.src, "_blank", "noopener,noreferrer");
   });
 });
+
+const revealItems = document.querySelectorAll(
+  ".section-heading, .teaching-card, .split-section > *, .timeline-item, .content-card, .project-card, .stack-group, .certificate-card, .contact"
+);
+
+revealItems.forEach((item, index) => {
+  item.classList.add("reveal", `reveal-delay-${(index % 4)}`);
+});
+
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.14 }
+);
+
+revealItems.forEach((item) => revealObserver.observe(item));
